@@ -64,7 +64,7 @@ class MiniScreenPlayer extends StatelessWidget {
         children: [
           AlbumImage(
             song: song,
-            radius: 120,
+            radius: 120, tag: 'no-tag',
           ),
           Expanded(
             child: Padding(
@@ -111,7 +111,7 @@ class FullScreenPlayer extends StatelessWidget {
             child: Center(
               child: AlbumImage(
                 song: song,
-                radius: 240,
+                radius: 240, tag: song.id,
               ),
             ),
           ),

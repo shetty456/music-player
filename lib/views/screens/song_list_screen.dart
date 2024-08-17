@@ -52,7 +52,7 @@ class _SongListScreenState extends State<SongListScreen> {
                         return ListTile(
                           leading: AlbumImage(
                             song: song,
-                            radius: 50,
+                            radius: 50, tag: song.id,
                           ),
                           title: Text(song.title),
                           subtitle: Text(song.artist),
