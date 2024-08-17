@@ -1,13 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:music_player/views/widgets/title_artist.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:music_player/views/widgets/controls_button.dart';
 import 'package:provider/provider.dart';
 
 import 'package:music_player/models/song.dart';
 import 'package:music_player/providers/music_provider.dart';
 import 'package:music_player/utils/utils.dart';
 import 'package:music_player/views/widgets/album_image.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:music_player/views/widgets/title_artist.dart';
 
 class MusicPlayer extends StatefulWidget {
   final Song? song;
@@ -78,36 +80,7 @@ class MiniScreenPlayer extends StatelessWidget {
                     artist: song.artist,
                   ),
                   const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.skip_previous),
-                        iconSize: 36,
-                        onPressed: () {
-                          // Handle skip to previous song
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(
-                            song.isPlaying ? Icons.pause : Icons.play_arrow),
-                        iconSize: 36,
-                        onPressed: () {
-                          pauseAndPlay(
-                            song,
-                            musicProvider,
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.skip_next),
-                        iconSize: 36,
-                        onPressed: () {
-                          // Handle skip to next song
-                        },
-                      ),
-                    ],
-                  ),
+                  ControlButtons(song: song, musicProvider: musicProvider)
                 ],
               ),
             ),
@@ -158,38 +131,24 @@ class FullScreenPlayer extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      IconButton(
-                        icon: const Icon(Icons.skip_previous),
-                        iconSize: 36,
-                        onPressed: () {
-                          // Handle skip to previous song
+                  StreamBuilder<DurationState>(
+                    stream: musicProvider.durationState,
+                    builder: (context, snapshot) {
+                      final durationState = snapshot.data;
+                      final progress = durationState?.progress ?? Duration.zero;
+                      final buffered = durationState?.buffered ?? Duration.zero;
+                      final total = durationState?.total ?? Duration.zero;
+                      return ProgressBar(
+                        progress: progress,
+                        buffered: buffered,
+                        total: total,
+                        onSeek: (duration) {
+                          musicProvider.player.seek(duration);
                         },
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          song.isPlaying ? Icons.pause : Icons.play_arrow,
-                        ),
-                        iconSize: 36,
-                        onPressed: () {
-                          pauseAndPlay(
-                            song,
-                            musicProvider,
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.skip_next),
-                        iconSize: 36,
-                        onPressed: () {
-                          // Handle skip to next song
-                        },
-                      ),
-                    ],
+                      );
+                    },
                   ),
+                  ControlButtons(song: song, musicProvider: musicProvider),
                 ],
               ),
             ),
@@ -198,4 +157,15 @@ class FullScreenPlayer extends StatelessWidget {
       ),
     );
   }
+}
+
+class DurationState {
+  const DurationState({
+    required this.progress,
+    required this.buffered,
+    required this.total,
+  });
+  final Duration progress;
+  final Duration buffered;
+  final Duration total;
 }

@@ -8,3 +8,5 @@ void pauseAndPlay(Song song, MusicProvider musicProvider) {
 void justPlay(Song song, MusicProvider musicProvider) {
   musicProvider.playSong(song);
 }
+
+
