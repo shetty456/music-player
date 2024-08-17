@@ -14,6 +14,7 @@ class MusicProvider with ChangeNotifier {
 
   List<Song> get songs => _songs;
   Song? get currentSong => _currentSong;
+  AudioPlayer get player => _audioPlayer;
 
   void _initializeSongs() {
     _songs = [
@@ -101,6 +102,7 @@ class MusicProvider with ChangeNotifier {
       playSong(_songs[_currentIndex]);
     }
   }
+  
 
   void _updateCurrentSong(Song song) {
     _currentSong?.isPlaying = false; // Reset the previous song's state

@@ -36,7 +36,12 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        scaffoldBackgroundColor: Colors.white, // Page color
+        appBarTheme: const AppBarTheme(
+          color: Colors.white, // AppBar color
+          iconTheme: IconThemeData(color: Colors.black), // Icon color in AppBar
+        ),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
