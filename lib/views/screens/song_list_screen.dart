@@ -52,7 +52,8 @@ class _SongListScreenState extends State<SongListScreen> {
                         return ListTile(
                           leading: AlbumImage(
                             song: song,
-                            radius: 50, tag: song.id,
+                            radius: 50,
+                            tag: song.id,
                           ),
                           title: Text(song.title),
                           subtitle: Text(song.artist),
@@ -67,9 +68,7 @@ class _SongListScreenState extends State<SongListScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => IndividualSongScreen(
-                                  song: song,
-                                ),
+                                builder: (context) => const IndividualSongScreen(),
                               ),
                             );
                           },

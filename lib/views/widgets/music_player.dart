@@ -1,13 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:music_player/views/widgets/controls_button.dart';
 import 'package:provider/provider.dart';
 
 import 'package:music_player/models/song.dart';
 import 'package:music_player/providers/music_provider.dart';
-import 'package:music_player/utils/utils.dart';
 import 'package:music_player/views/widgets/album_image.dart';
 import 'package:music_player/views/widgets/title_artist.dart';
 
