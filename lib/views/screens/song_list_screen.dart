@@ -56,9 +56,14 @@ class _SongListScreenState extends State<SongListScreen> {
                           ),
                           title: Text(song.title),
                           subtitle: Text(song.artist),
-                          trailing: song.isPlaying ? Lottie.asset('assets/animations/playing.json') : null,
+                          trailing: song.isPlaying
+                              ? Lottie.asset('assets/animations/playing.json')
+                              : null,
                           onLongPress: () {
-                            justPlay(song, musicProvider);
+                            if (song.isPlaying != true) {
+                              justPlay(song, musicProvider);
+                            }
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
