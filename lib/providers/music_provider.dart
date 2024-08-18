@@ -75,6 +75,13 @@ class MusicProvider with ChangeNotifier {
     _audioPlayer.durationStream.listen((duration) {
       _updateDurationState();
     });
+
+    // Listen to the player state to detect when a song ends
+    _audioPlayer.playerStateStream.listen((playerState) {
+      if (playerState.processingState == ProcessingState.completed) {
+        playNextSong();
+      }
+    });
   }
 
   void _updateDurationState() {
@@ -102,6 +109,7 @@ class MusicProvider with ChangeNotifier {
   void pauseSong() {
     _audioPlayer.pause();
     _currentSong?.isPlaying = false;
+    _currentSong?.isPaused = true;
     notifyListeners();
   }
 
@@ -120,6 +128,7 @@ class MusicProvider with ChangeNotifier {
   void resumeSong() {
     _audioPlayer.play();
     _currentSong?.isPlaying = true;
+    _currentSong?.isPaused = false;
     notifyListeners();
   }
 

@@ -5,6 +5,7 @@ class Song {
   final String albumImageUrl;
   final String audioUrl;
   bool isPlaying;
+  bool isPaused;
 
   Song({
     required this.id,
@@ -13,5 +14,6 @@ class Song {
     required this.albumImageUrl,
     required this.audioUrl,
     this.isPlaying = false,
+    this.isPaused = false,
   });
 }
